@@ -21,6 +21,9 @@ app.use(express.json())
 //Routes
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/tramites', require('./routes/tramites'))
+app.use('/',(req, res)=>{
+    res.redirect('/')
+})
 
 //Listen Req
 app.listen(env.PORT, ()=>{
