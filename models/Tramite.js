@@ -15,6 +15,9 @@ const TramitesSchema = Schema({
     prepay:{
         type: Number
     },
+    topay:{
+        type: Number
+    },
     phone:{
         type: String
     },
@@ -24,10 +27,16 @@ const TramitesSchema = Schema({
     isComplete:{
         type: Boolean
     },
+    isPaid:{
+        type:Boolean
+    },
     user:{
         type:Schema.Types.ObjectId,
         ref:'User',
         required: true
+    },
+    isImportant:{
+        type:Boolean
     },
     links:{
         type:Array

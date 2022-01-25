@@ -20,6 +20,14 @@ const createTramite = async(req, res = response) => {
     const tramite = new Tramite(req.body)
     try {
         tramite.user = req.uid
+
+        //set if is paid
+        tramite.topay = (tramite.amount - tramite.prepay)
+        if(!tramite.isPaid){tramite.isPaid = false}
+        if(tramite.topay <= 0){
+            tramite.isPaid = true
+        }
+
         const tramiteSaved = await tramite.save()
 
         res.json({
@@ -61,6 +69,13 @@ const updateTramite = async(req , res = response) => {
         const newTramite = {
             ...req.body,
             user:uid
+        }
+
+        //set if is paid
+        newTramite.topay = (newTramite.amount - newTramite.prepay)
+        newTramite.isPaid = false
+        if(newTramite.topay <= 0){
+            newTramite.isPaid = true
         }
 
         const tramiteUpdated = await Tramite.findByIdAndUpdate(tramiteId, newTramite, {new:true})
